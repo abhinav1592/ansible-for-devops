@@ -24,6 +24,35 @@ Note for Windows users: *This guide assumes you're on a Mac or Linux host. Windo
 
 Note: *If there are any errors during the course of running `vagrant up`, and it drops you back to your command prompt, just run `vagrant provision` to continue building the VM from where you left off. If there are still errors after doing this a few times, post an issue to this project's issue queue on GitHub with the error.*
 
+### Handling Errors:
+
+
+Based on this youtube video: https://www.youtube.com/watch?v=7kVfqmGtDL8&list=PL2_OBreMn7FqZkvMYt6ATmgC0KAGGJNAN
+
+you might face some errors:
+
+VirtualBox 6.1
+Vagrant 2.2.10
+RHEL 7.8
+
+If any of the linux [not MAC-OS folks] guys folks error like:
+VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory VBoxManage: 
+
+Run sudo modprobe vboxnetadp
+
+After this if you face error
+
+Stderr: VBoxManage: error: Failed to open/create the internal network 'HostInterfaceNetworking-vboxnet0' (VERR_SUPDRV_COMPONENT_NOT_FOUND).
+VBoxManage: error: Failed to attach the network LUN (VERR_SUPDRV_COMPONENT_NOT_FOUND).
+VBoxManage: error: One of the kernel modules was not successfully loaded. Make sure that VirtualBox is correctly installed, and if you are using EFI Secure Boot that the modules are signed if necessary in the right way for your host system.  Then try to recompile and reload the kernel modules by executing 'akmods && systemctl restart vboxdrv.service' as root (VERR_SUPDRV_COMPONENT_NOT_FOUND)
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component ConsoleWrap, interface IConsole
+
+Run:  sudo modprobe vboxnetflt
+
+
+Then Run vagrant up.
+
+
 ### 3 - Create an Inventory file, and run `ansible` commands
 
 Read through the third chapter of [Ansible for DevOps](https://www.ansiblefordevops.com/) for details.
